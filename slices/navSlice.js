@@ -9,7 +9,8 @@ const initialState = {
 export const navSlice = createSlice({
 	name: "nav",
 	initialState,
-	reducer: {
+	reducers: {
+		// always write reducers, reducer will create an error that its not a function
 		setOrigin: (state, action) => {
 			state.origin = action.payload;
 		},
