@@ -11,37 +11,39 @@ const NavigateCard = () => {
 	const dispatch = useDispatch();
 	const navigation = useNavigation();
 	return (
-		<View>
-			<SafeAreaView style={tw`flex-1 bg-white`}>
-				<Text style={tw`text-center py-5 text-xl`}>Good Morning, Sagar</Text>
-				<View style={tw`border-t border-gray-200 flex-shrink`}>
-					<View>
-						<GooglePlacesAutocomplete
-							placeholder='Where To?'
-							debounce={400}
-							styles={toInputBoxStyles}
-							enablePoweredByContainer={false}
-							query={{
-								key: GOOGLE_MAPS_APIKEY,
-								language: "en",
-							}}
-							onPress={(data, details = null) => {
-								dispatch(
-									setDestination({
-										location: details.geometry.location,
-										description: data.description,
-									})
-								);
-								navigation.navigate("RideOptionsCard");
-							}}
-							nearbyPlacesAPI='GooglePlacesSearch'
-							returnKeyType={"search"}
-							minLength={2}
-						/>
-					</View>
+		<SafeAreaView style={tw`flex-1 bg-white`}>
+			<Text style={tw`text-center py-5 text-xl`}>Good Morning, Sagar</Text>
+			<View style={tw`border-t border-gray-200 flex-shrink`}>
+				<View>
+					<GooglePlacesAutocomplete
+						styles={toInputBoxStyles}
+						query={{
+							key: GOOGLE_MAPS_APIKEY,
+							language: "en",
+							// components: 'country:gh',
+						}}
+						onPress={(data, details = null) => {
+							dispatch(
+								setDestination({
+									location: details.geometry.location,
+									description: data.description,
+								})
+							);
+
+							// Navigate user to RideOption pagge
+							navigation.navigate("RideOptionsCard");
+						}}
+						minLength={2}
+						returnKeyType={"search"}
+						fetchDetails={true}
+						nearbyPlacesAPI='GooglePlacesSearch'
+						debounce={400}
+						placeholder='Where to ?'
+						enablePoweredByContainer={false}
+					/>
 				</View>
-			</SafeAreaView>
-		</View>
+			</View>
+		</SafeAreaView>
 	);
 };
 
